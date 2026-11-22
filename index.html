@@ -248,7 +248,7 @@ function Cover({onOpen,guest}){
     <button className="btn" style=${{marginTop:16}} onClick=${onOpen}>BUKA UNDANGAN</button>
   </div></div></header>`;
 }
-function Opening(){return h`<${Reveal} id="opening"><p style=${{marginBottom:40}} className="lead">Segala sesuatu Kami ciptakan berpasang-pasangan agar kamu mengingat (kebesaran Allah). (QS Az Zariyat : 49)</p><${Head}>${D.openingGreeting}<//><p className="lead">${D.invitationMessage}</p>
+function Opening(){return h`<${Reveal} id="opening"><p className="lead">Segala sesuatu Kami ciptakan berpasang-pasangan agar kamu mengingat (kebesaran Allah).</p><p style=${{marginBottom:40}} className="lead">(QS Az Zariyat : 49)</p><${Head}>${D.openingGreeting}<//><p className="lead">${D.invitationMessage}</p>
   <div style=${{marginTop:28}}><${Photo} src=${D.couplePhoto} alt=${`${names[0].nickname} and ${names[1].nickname}`} ratio="3/2" label=${`${names[0].nickname} & ${names[1].nickname}`}/></div><//>`}
 function Count(){
   const [n,setN]=useState(Date.now());
@@ -300,12 +300,23 @@ function Calendar(){
   `;
 }
 function Story(){return !D.loveStory?.length?null:h`<${Reveal} id="story"><${Head}>KISAH KAMI<//><ul className="story">${D.loveStory.map((x,i)=>h`<li key=${i}><small className="eyebrow">${x.date}</small><b>${x.title}</b><span>${x.text}</span></li>`)}</ul><//>`}
-function Pax({p,role,rel}){
+function Pax({p,paxNo,role,rel}){
   return h`<div className="ticket pax"><div className="av">${safeImg(p.photo)?h`<${Photo} src=${p.photo} alt=${p.fullName} ratio="1"/>`:h`<${Globe} s=${64}/>`}</div>
-  <div style=${{flex:1}}><small className="eyebrow mut" style=${{fontSize:'.58rem'}}>${role}</small><h3>${p.fullName}</h3><p className="mut" style=${{fontSize:'.85rem'}}>${rel}</p><p style=${{fontWeight:500,fontSize:'.85rem'}}>${p.parents}</p></div><div className="bar" aria-hidden="true"></div></div>`;
+  <div style=${{flex:1}}>
+    <small className="eyebrow mut" style=${{fontSize:'.58rem',display:'block'}}>${paxNo}</small>
+    <small className="eyebrow mut" style=${{fontSize:'.58rem',display:'block',marginBottom:4}}>${role}</small>
+    <h3>${p.fullName}</h3>
+    <p className="mut" style=${{fontSize:'.85rem'}}>${rel}</p>
+    <p style=${{fontWeight:500,fontSize:'.85rem'}}>${p.parents}</p>
+  </div><div className="bar" aria-hidden="true"></div></div>`;
 }
+
 function Couple(){return h`<${Reveal} id="couple"><${Head}>PARA PENUMPANG<//><p className="lead">Dua penumpang, satu tujuan: selamanya.</p>
-  <div style=${{marginTop:24}}><${Pax} p=${B} role="PENUMPANG 01 · MEMPELAI WANITA" rel="Putri dari"/><div className="amp" aria-hidden="true">&</div><${Pax} p=${G} role="PENUMPANG 02 · MEMPELAI PRIA" rel="Putra dari"/></div><//>`}
+  <div style=${{marginTop:24}}>
+    <${Pax} p=${B} paxNo="PENUMPANG 01" role="MEMPELAI WANITA" rel="Putri dari"/>
+    <div className="amp" aria-hidden="true">&</div>
+    <${Pax} p=${G} paxNo="PENUMPANG 02" role="MEMPELAI PRIA" rel="Putra dari"/>
+  </div><//>`}
 function Venue(){
   const S=D.sessions||[];
   return !S.length?null:h`<${Reveal} id="venue" kind="flip"><div className="ticket ev"><h2 className="t">LOKASI ACARA</h2><div className="rule"></div>
